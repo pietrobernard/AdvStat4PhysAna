@@ -1,0 +1,11 @@
+model {
+ # likelihood bin per bin
+ for (i in 1:n) {
+  lambda[i] <- nmu*(exp(-1*bin_low[i]/tau) - exp(-1*bin_high[i]/tau));
+  X[i] ~ dpois(lambda[i]);
+ }
+ # prior (uniform)
+ tau ~ dgamma(1,1e-4);
+ # predicted data
+ y ~ dpois(1./tau);
+}
